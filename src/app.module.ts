@@ -10,7 +10,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DBconfig } from './config';
 import { JwtMiddleware } from './middleware/jwt.middleware';
 import { config } from 'dotenv';
-// import { AddressesModule } from './modules/addresses/addresses.module';
 // import { PropertiesModule } from './modules/properties/properties.module';
 // import { CompanyProfileModule } from './modules/company-profile/company-profile.module';
 // import { PatientsModule } from './modules/customers/patient.module';
@@ -77,7 +76,6 @@ console.log('env--->', DBconfig.host, DBconfig.port, DBconfig.username, DBconfig
     }),
     AuthModule,
     UsersModule,
-    // AddressesModule,
     // PropertiesModule,
     // // CompanyProfileModule,
     // PatientsModule,

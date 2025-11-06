@@ -10,19 +10,12 @@ import { DeleteDto, LoginDto, userlogoutDto } from './dto/login-dto';
 import { Errors } from 'src/core/constants/error_enums';
 import { MailUtils } from 'src/core/utils/mailUtils';
 import Encryption from 'src/core/utils/encryption';
-import { AddressesService } from '../addresses/addresses.service';
 import { SignupAdminDto } from './dto/signup.dto';
-import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-team.entity';
-
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UsersService, 
     private readonly jwtService: JwtService,
-    private readonly addressesService: AddressesService,
-
-  @InjectRepository(TherapistMember)
-  private readonly therapistRepo: Repository<TherapistMember>,
   ) { }
 
   async signup(signupData: SignupAdminDto, user_type: 'admin'): Promise<any> {
@@ -37,14 +30,6 @@ export class AuthService {
     try {
       const userData: Partial<User> = {
         ...signupData,
-        // user_type,
-        // email_verified: false,
-        // last_login: new Date(),
-        // is_blocked: false,
-        // preferences: [],
-        // company_name: null,
-        // website: null,
-        // tax_id: null,
       };
       
       const newUser = await this.userService.create(userData);
@@ -70,65 +55,6 @@ export class AuthService {
 
 
 
-
-
-// async loginWithEmail(
-//   { email_id, password, remember_me }: LoginDto
-// ): Promise<{ user: Partial<User>, accessToken: string, refreshToken: string }> {
-//   logger.info(`Login_Entry: ` + JSON.stringify({ email_id, remember_me }));
-
-//   const user: User = await this.userService.findOneByEmail(email_id);
-
-//   if (!user) {
-//     logger.info(`Login_User_Not_Found: ${email_id}`);
-//     throw new NotFoundException(Errors.USER_NOT_EXISTS);
-//   }
-
-//   if (!user.password) {
-//     logger.info(`Login_Password_Missing: ${email_id}`);
-//     throw new UnauthorizedException(Errors.INVALID_USER_DETAILS);
-//   }
-
-//   if (!Encryption.comparePassword(password, user.password)) {
-//     logger.info(`Login_Invalid_Password: ${email_id}`);
-//     throw new UnauthorizedException(Errors.INCORRECT_USER_PASSWORD);
-//   }
-
-//   // 🔹 Fetch team member entry
-// const teamMember = await this.teamMemberRepo.findOne({
-//   where: { team_id: user.team_id },
-//   relations: ['branches', 'primary_branch'],
-// });
-
-
-//   if (!teamMember) {
-//     throw new UnauthorizedException('User does not belong to any team');
-//   }
-
-//   // ✅ Only put user_id in JWT payload
-//   const payload = { user_id: user.id };
-
-//   const { access_token, refresh_token } = await this.generateTokens(payload, remember_me);
-
-//   const { password: _, ...userResponse } = user;
-
-//   logger.debug(`Generated JWT payload: ${JSON.stringify(payload)}`);
-//   logger.info(`Login_Success: ${email_id} | Role=${teamMember.role}`);
-
-//   return {
-//     user: { ...userResponse, role: teamMember.role,
-//       photo: teamMember.photo,
-//      branches: teamMember.branches || [],
-//     primary_branch: teamMember.primary_branch || null,
-//     permissions: teamMember.permissions || {},
-//       status: teamMember.status,
-//      } as Partial<User> & { role: string },
-//     accessToken: access_token,
-//     refreshToken: refresh_token,
-//   };
-// }
-
-
 async loginWithEmail(
   { email_id, password, remember_me }: LoginDto
 ): Promise<{ user: Partial<User>, accessToken: string, refreshToken: string }> {
@@ -152,15 +78,8 @@ async loginWithEmail(
     throw new UnauthorizedException(Errors.INCORRECT_USER_PASSWORD);
   }
 
-  // 3️⃣ Fetch therapist info via therapist_id in users table
-  const therapistMember = await this.therapistRepo.findOne({
-    where: { therapistId: user.therapist_id },
-    relations: ['branches', 'primaryBranch', 'department', 'specializations'],
-  });
 
-  if (!therapistMember) {
-    throw new UnauthorizedException('User does not belong to any therapist team');
-  }
+
 
   // 4️⃣ Prepare JWT payload
   const payload = { user_id: user.id };
@@ -169,27 +88,13 @@ async loginWithEmail(
   // 5️⃣ Prepare user response
   const { password: _, ...userResponse } = user;
 
-  const therapistData = {
-    therapist_id: therapistMember.therapistId,
-    name: therapistMember.contactEmail,
-    email: therapistMember.firstName,
-    role: therapistMember.role,
-    photo: therapistMember.imageUrl,
-    branches: therapistMember.branches || [],
-    primary_branch: therapistMember.primaryBranch || null,
-    permissions: therapistMember.permissions || {},
-    status: therapistMember.status,
-    department: therapistMember.department || null,
-    specializations: therapistMember.specializations || [],
-  };
 
-  logger.debug(`Generated JWT payload: ${JSON.stringify(payload)}`);
-  logger.info(`Login_Success: ${email_id} | Role=${therapistMember.role}`);
+
+
 
 return {
   user: { 
     ...userResponse, 
-    therapistTeamMembers: therapistData as unknown as TherapistMember 
   },
   accessToken: access_token,
   refreshToken: refresh_token,

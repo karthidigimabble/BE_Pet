@@ -12,7 +12,6 @@ import { JwtStrategy } from './jwt.strategy';
 import { UsersController } from '../users/users.controller';
 import { MailUtils } from 'src/core/utils/mailUtils';
 import { HomeService } from '../users/home.service';
-import { AddressesModule } from '../addresses/addresses.module';
 // import { AgentsModule } from '../agents/agents.module';
 import { Role } from 'src/modules/roles/entities/role.entity';
 // import {StaffModule} from '../StaffType/staff.module';
@@ -21,18 +20,17 @@ import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 // import { Staff } from 'src/modules/StaffType/entities/staff.entity';
 import { Token } from 'src/modules/users/entities/token.entity';
-import { TherapistTeamModule } from '../therapists-team/therapist-team.module';
-import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-team.entity';
+// import { TherapistTeamModule } from '../therapists-team/therapist-team.module';
+// import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-team.entity';
 
 
 @Module({
   imports: [
-    PassportModule,
-    AddressesModule,
+    // PassportModule,
     UsersModule,
-    TherapistTeamModule,
+    // TherapistTeamModule,
     // StaffModule,
-    TypeOrmModule.forFeature([Role, Token, TherapistMember]),
+    TypeOrmModule.forFeature([Role, Token]),
     // forwardRef(() => AgentsModule),
     // JwtModule.register({
     //   secret: process.env.JWTKEY,

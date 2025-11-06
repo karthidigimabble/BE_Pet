@@ -78,7 +78,6 @@ import { Exclude } from 'class-transformer';
 import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-team.entity';
 
 import { Role } from 'src/modules/roles/entities/role.entity';
-import { Address } from 'src/modules/addresses/entities/address.entity';
 import { SocialLinks } from 'src/modules/social-links/entities/social-links.entity';
 import { Permission } from 'src/modules/permissions/entities/permission.entity';
 // import { Staff } from 'src/modules/StaffType/entities/staff.entity';

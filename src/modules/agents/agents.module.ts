@@ -5,14 +5,12 @@
 // import { AgentsController } from './agents.controller';
 // import { SocialLinks } from '../social-links/entities/social-links.entity';
 // import { AuthModule } from '../auth/auth.module';
-// import { AddressesModule } from '../addresses/addresses.module'; 
 // import User from '../users/entities/user.entity';
 // import Property from '../properties/entities/property.entity';
 
 // @Module({
 //   imports: [
-//     TypeOrmModule.forFeature([User, SocialLinks, Property]),
-//     AddressesModule,                                 
+//     TypeOrmModule.forFeature([User, SocialLinks, Property]),                               
 //     forwardRef(() => AuthModule),
 //   ],
 //   controllers: [AgentsController],

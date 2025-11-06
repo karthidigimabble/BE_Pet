@@ -103,7 +103,6 @@ import moment from 'moment';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Token } from './entities/token.entity';
 import { UpdateCompanyProfileDto } from './dto/update-company-profile.dto';
-import { Address } from '../addresses/entities/address.entity';
 
 @Injectable()
 export class UsersService extends BaseService<User> {
@@ -111,8 +110,6 @@ export class UsersService extends BaseService<User> {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Token) private readonly tokenRepository: Repository<Token>,
-    @InjectRepository(Address)
-    private readonly addressRepository: Repository<Address>,
   ) {
     super(userRepository.manager);
     this.repository = userRepository;

@@ -3,7 +3,6 @@ import 'dotenv/config';
 import { DataSource } from 'typeorm';
 import { DBconfig } from './src/config';
 import { Patient } from './src/modules/customers/entities/patient.entity';
-import { Address } from './src/modules/addresses/entities/address.entity';
 import { Therapist } from './src/modules/therapist/entities/therapist.entity';
 // import { Staff } from './src/modules/StaffType/entities/staff.entity';
 import { Role } from 'src/modules/roles/entities/role.entity';
@@ -28,7 +27,6 @@ export const AppDataSource = new DataSource({
   database: DBconfig.database,
   entities: [
     Patient,
-    Address,
     Therapist,
     // Staff,
     Role,
