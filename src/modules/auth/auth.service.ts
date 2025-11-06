@@ -12,7 +12,6 @@ import { MailUtils } from 'src/core/utils/mailUtils';
 import Encryption from 'src/core/utils/encryption';
 import { AddressesService } from '../addresses/addresses.service';
 import { SignupAdminDto } from './dto/signup.dto';
-import { TeamMember } from '../team-member/entities/team-member.entity';
 import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-team.entity';
 
 @Injectable()
@@ -21,8 +20,6 @@ export class AuthService {
     private readonly userService: UsersService, 
     private readonly jwtService: JwtService,
     private readonly addressesService: AddressesService,
-    @InjectRepository(TeamMember)
-  private readonly teamMemberRepo: Repository<TeamMember>, 
 
   @InjectRepository(TherapistMember)
   private readonly therapistRepo: Repository<TherapistMember>,

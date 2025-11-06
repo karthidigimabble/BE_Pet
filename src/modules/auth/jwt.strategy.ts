@@ -3,12 +3,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException, Logger } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { ConfigService } from '@nestjs/config';
-import { TeamMemberService } from '../team-member/team-member.service';
 import User from '../users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { TeamMember } from '../team-member/entities/team-member.entity';
-
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   private readonly logger = new Logger(JwtStrategy.name);
@@ -16,7 +13,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private configService: ConfigService,
     private userService: UsersService,
-    private teamMemberService: TeamMemberService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -42,31 +38,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       }
       this.logger.debug(`✅ [JwtStrategy] User fetched: id=${user.id}, team_id=${user.team_id}`);
 
-      // 2️⃣ Fetch team member (role lives here)
-      const teamMember = await this.teamMemberService.findByUserIdAndTeamId(
-        user.id,
-        user.team_id,
-      );
-      if (!teamMember) {
-        this.logger.error(
-          `❌ [JwtStrategy] No team member found for user_id=${user.id}, team_id=${user.team_id}`,
-        );
-        throw new UnauthorizedException('Team member not linked to user');
-      }
-
-      this.logger.debug(
-        `✅ [JwtStrategy] TeamMember fetched: team_id=${teamMember.team_id}, role=${teamMember.role}`,
-      );
-
       // 3️⃣ Final user object (goes into req.user)
       const jwtUser = {
         user_id: user.id,
-        email: user.email_id,
-        team_id: teamMember.team_id,
-        role: teamMember.role,
-        permissions: teamMember.permissions || {},
-        branches: teamMember.branches || [],
-        primary_branch: teamMember.primary_branch || null,
+        email: user.email_id
       };
 
       this.logger.debug(`✅ [JwtStrategy] Returning validated user: ${JSON.stringify(jwtUser)}`);
