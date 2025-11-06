@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { setupSwagger } from '../swagger';
+import { setupSwagger } from './swagger';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
