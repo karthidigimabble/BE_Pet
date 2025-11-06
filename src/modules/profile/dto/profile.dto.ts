@@ -1,7 +1,6 @@
 // profile.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
 import  User  from 'src/modules/users/entities/user.entity';
-import { TeamMember } from 'src/modules/team-member/entities/team-member.entity';
 import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-team.entity';
 
 export class ProfileDto {

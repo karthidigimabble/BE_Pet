@@ -6,14 +6,13 @@ import { UpdateTherapistTeamDto } from 'src/modules/therapists-team/dto/update-t
 import { TherapistTeamFilterDto } from './dto/therapist-team-filter.dto';
 import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-team.entity';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/common/guards/roles.guard';
 import { PermissionGuard } from 'src/common/guards/permission.guard';
 import { BranchGuard } from 'src/common/guards/branch.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { Permissions } from 'src/common/decorators/permissions.decorator';
 
-@ApiTags('Therapist Team Members')
-@UseGuards(JwtAuthGuard, RolesGuard, PermissionGuard, BranchGuard)
+//@ApiTags('Therapist Team Members')
+@UseGuards(JwtAuthGuard, PermissionGuard, BranchGuard)
 @Controller('therapist-team')
 export class TherapistTeamController {
   constructor(private readonly therapistService: TherapistTeamService) {}

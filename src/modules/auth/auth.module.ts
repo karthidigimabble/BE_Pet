@@ -16,14 +16,11 @@ import { AddressesModule } from '../addresses/addresses.module';
 // import { AgentsModule } from '../agents/agents.module';
 import { Role } from 'src/modules/roles/entities/role.entity';
 // import {StaffModule} from '../StaffType/staff.module';
-import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 // import { Staff } from 'src/modules/StaffType/entities/staff.entity';
 import { Token } from 'src/modules/users/entities/token.entity';
-import { TeamMemberModule } from '../team-member/team-member.module';
-import { TeamMember } from '../team-member/entities/team-member.entity';
 import { TherapistTeamModule } from '../therapists-team/therapist-team.module';
 import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-team.entity';
 
@@ -33,10 +30,9 @@ import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-
     PassportModule,
     AddressesModule,
     UsersModule,
-    TeamMemberModule,
     TherapistTeamModule,
     // StaffModule,
-    TypeOrmModule.forFeature([Role, Token,TeamMember, TherapistMember]),
+    TypeOrmModule.forFeature([Role, Token, TherapistMember]),
     // forwardRef(() => AgentsModule),
     // JwtModule.register({
     //   secret: process.env.JWTKEY,
@@ -56,7 +52,7 @@ import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-
   providers: [AuthService, LocalStrategy, JwtStrategy, MailUtils, HomeService
      ,{
       provide: APP_GUARD,
-      useClass: RolesGuard,
+      useClass: JwtStrategy,
     }
   ],
   controllers: [AuthController, UsersController],
