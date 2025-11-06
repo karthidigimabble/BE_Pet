@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsOptional, IsString, ValidateNested, Length, Matches } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateAddressDto } from 'src/modules/addresses/dto/create-address.dto';
 
 export class SignupAgentDto {
     @ApiProperty({ example: 'Agent User' })
@@ -29,15 +28,6 @@ export class SignupAgentDto {
     @IsString()
     mobile_no: string;
 
-    @ApiProperty({
-        type: CreateAddressDto,
-        description: 'Address is required when registering as an agent'
-    })
-    
-    @IsNotEmpty()
-    @ValidateNested()
-    @Type(() => CreateAddressDto)
-    address: CreateAddressDto;
 
     @ApiProperty({ example: 'your_device_token', required: false })
     @IsOptional()

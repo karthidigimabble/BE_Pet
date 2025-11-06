@@ -7,7 +7,6 @@ import {
   IsUrl,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateAddressDto } from 'src/modules/addresses/dto/create-address.dto';
 
 export class UpdateCompanyProfileDto {
   @IsString()
@@ -16,10 +15,6 @@ export class UpdateCompanyProfileDto {
   @IsOptional()
   @IsString()
   logo?: string;
-
-  @ValidateNested()
-  @Type(() => CreateAddressDto)
-  address: CreateAddressDto;
 
   @IsOptional()
   @IsString()
