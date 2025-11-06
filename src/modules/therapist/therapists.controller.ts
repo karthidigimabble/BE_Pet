@@ -24,7 +24,6 @@ import { UpdateTherapistDto } from './dto/update-therapist.dto';
 import { TherapistFilterDto } from './dto/therapist-filter.dto';
 import { Therapist } from './entities/therapist.entity';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/common/guards/roles.guard';
 import { PermissionGuard } from 'src/common/guards/permission.guard';
 import { BranchGuard } from 'src/common/guards/branch.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
@@ -32,7 +31,7 @@ import { Permissions } from 'src/common/decorators/permissions.decorator';
 
 
 @ApiTags('Therapists')
-@UseGuards(JwtAuthGuard, RolesGuard, PermissionGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, PermissionGuard, BranchGuard)
 @Controller('therapists')
 export class TherapistController {
   constructor(private readonly therapistService: TherapistService) {}

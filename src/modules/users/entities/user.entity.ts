@@ -75,7 +75,6 @@ import { Entity, Column, BeforeInsert, JoinColumn,ManyToOne, PrimaryGeneratedCol
 import Encryption from 'src/core/utils/encryption';
 import { BaseModel } from 'src/core/database/BaseModel';
 import { Exclude } from 'class-transformer';
-import { TeamMember } from 'src/modules/team-member/entities/team-member.entity';
 import { TherapistMember } from 'src/modules/therapists-team/entities/therapist-team.entity';
 
 import { Role } from 'src/modules/roles/entities/role.entity';
@@ -109,9 +108,7 @@ export default class User  {
 
 
 
-  @ManyToOne(() => TeamMember, (teamMember) => teamMember.users, { nullable: false })
-  @JoinColumn({ name: 'team_id' })
-  team: TeamMember;
+
 
 
 @Column({ type: 'int', nullable: false })
@@ -124,37 +121,6 @@ therapist_id: number;
 
 
 
-  // @Column({ type: 'boolean', default: false })
-  // email_verified: boolean;
-
-
-
-  // @Column({ type: 'timestamp', nullable: true })
-  // last_login: Date;
-
-  // @Column({ type: 'text', nullable: true })
-  // device_token: string;
-
-  
-  // @ManyToMany(() => Role, role => role.users)
-  // @JoinTable({
-  //   name: 'user_roles',
-  //   joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-  //   inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' }
-  // })
-  // roles: Role[];
-
-//   @ManyToMany(() => Permission, (permission) => permission.users, { eager: true }) // Optional: eager loading
-// @JoinTable({
-//   name: 'user_permissions',
-//   joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-//   inverseJoinColumn: { name: 'permission_id', referencedColumnName: 'id' },
-// })
-// permissions: Permission[];
-
-// @OneToOne(() => Staff, (staff) => staff.user)
-// staff: Staff;
-
-
+ 
 }
 

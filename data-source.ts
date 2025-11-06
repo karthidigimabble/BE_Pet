@@ -13,7 +13,6 @@ import User from 'src/modules/users/entities/user.entity';
 import { Menu } from 'src/modules/menus/entities/menu.entity';
 import { Branch } from 'src/modules/branches/entities/branch.entity';
 import { Token } from 'src/modules/users/entities/token.entity';
-import { TeamMember } from 'src/modules/team-member/entities/team-member.entity';
 import { Consultation } from 'src/modules/consultations/entities/consultation.entity';
 import { Department } from 'src/modules/Department/entities/department.entity';
 import { Specialization } from 'src/modules/specialization/entities/specialization.entity';
@@ -39,7 +38,6 @@ export const AppDataSource = new DataSource({
     Menu,
     Branch,
     Token,
-    TeamMember,
     Consultation,
     Department,
     Specialization,
