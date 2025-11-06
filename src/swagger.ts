@@ -1,10 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import fs from "fs";
-import { PRODUCTION } from './src/core/constants';
+import { PRODUCTION } from './core/constants';
 export function setupSwagger(app: INestApplication, type: string) {
     const options = new DocumentBuilder()
-        .setTitle('Anima API')
+        .setTitle('Pet API')
         .setDescription('API Documentation')
         .setVersion('1.0')
         .addBearerAuth()
